@@ -96,6 +96,6 @@ function Config:CreateMenu()
     UICharacterSheet.saveButton = self:CreateButton("CENTER", child, "BOTTOM", 0, "Save");
 
 
-	UICharacterSheet:Hide();
-	return UICharacterSheet;
+    UICharacterSheet:Hide();
+    return UICharacterSheet;
 end
