@@ -1,8 +1,10 @@
-## Interface: 
+## Interface: 80300
 ## Title: AnathemSystemTools
 ## Author: Droogz
 ## Version: 0.0.1
+## DefaultState: enabled
 ## SavedVariables: AnathemSystemToolsDB
 ## SavedVariablesPerCharacter: AnathemSystemToolsPerCharDB
 
-main.lua
+config.lua
+init.lua
