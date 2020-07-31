@@ -1,0 +1,8 @@
+## Interface: 
+## Title: AnathemSystemTools
+## Author: Droogz
+## Version: 0.0.1
+## SavedVariables: AnathemSystemToolsDB
+## SavedVariablesPerCharacter: AnathemSystemToolsPerCharDB
+
+main.lua
