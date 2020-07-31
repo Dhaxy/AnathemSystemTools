@@ -1,5 +1,5 @@
 ## Interface: 80300
-## Title: AnathemSystemTools
+## Title: |cff00ccffAnathemSystemTools|r
 ## Author: Droogz
 ## Version: 0.0.1
 ## DefaultState: enabled

@@ -18,3 +18,6 @@ Encore un exemple
 
 Un site avec toute la syntaxe LUA
 > http://tylerneylon.com/a/learn-lua/
+
+L'API complète
+> http://wowprogramming.com/index.html
