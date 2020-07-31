@@ -60,19 +60,19 @@ end
 function Config:CreateMenu()
 
     ----------------------------------
-	-- Main Frame
-	----------------------------------
+    -- Main Frame
+    ----------------------------------
 
-	UICharacterSheet = CreateFrame("Frame", "AnathemCharacterSheet", UIParent, "BasicFrameTemplate");
-	UICharacterSheet:SetSize(550, 600);
-	UICharacterSheet:SetPoint("CENTER");
+    UICharacterSheet = CreateFrame("Frame", "AnathemCharacterSheet", UIParent, "BasicFrameTemplate");
+    UICharacterSheet:SetSize(550, 600);
+    UICharacterSheet:SetPoint("CENTER");
     UICharacterSheet.title = UICharacterSheet:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
-	UICharacterSheet.title:SetPoint("CENTER", UICharacterSheet.TitleBg, "CENTER", 6, 1);
+    UICharacterSheet.title:SetPoint("CENTER", UICharacterSheet.TitleBg, "CENTER", 6, 1);
     UICharacterSheet.title:SetText("Anathem Character Sheet");
     
     ----------------------------------
-	-- Scroll Frame
-	----------------------------------
+    -- Scroll Frame
+    ----------------------------------
 
     UICharacterSheet.ScrollFrame = CreateFrame("ScrollFrame", nil, UICharacterSheet, "UIPanelScrollFrameTemplate");
     UICharacterSheet.ScrollFrame:SetPoint("TOPLEFT", UICharacterSheet.Bg, "TOPLEFT", 4, -8);
