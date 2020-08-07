@@ -89,6 +89,18 @@ function core:init(event, name)
     SLASH_AnathemSystemTools1 = "/ast";
     SlashCmdList.AnathemSystemTools = HandleSlashCommands;
 
+
+    local ldb = LibStub:GetLibrary("LibDataBroker-1.1");
+    local dataobj = ldb:NewDataObject("AnathemSystemTools", {
+        type = "data source",
+        icon = "",
+        text = "Anathem System Tools",
+        OnClick = function() print("BUNNIES ARE TAKING OVER THE WORLD") end,
+    });
+
+    local icon = LibStub("LibDBIcon-1.0");
+    icon:Register("AnathemSystemTools", dataobj, minimapicondb);
+
     core:PrintWithPrefix("Anathem system tools initialisés, bienvenue", UnitName("player").." !");
     core:PrintWithPrefix("From Droogz, with love |cffe82113<3|r. Add-on pour l'univers RP Anathem.")
 end

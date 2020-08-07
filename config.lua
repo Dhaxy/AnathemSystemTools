@@ -45,10 +45,6 @@ function Config:CreateButton(point, relativeFrame, relativePoint, yOffset, text)
     return button; 
 end
 
-function Config:CreateMinimapButton(point, relativeFrame, relativePoint, yOffset)
-    local button = CreateFrame("Button", nil, relativeFrame, "");
-end
-
 local function ScrollFrame_OnMouseWheel(self, delta)
 	local newValue = self:GetVerticalScroll() - (delta * 20);
 	

@@ -6,5 +6,7 @@
 ## SavedVariables: AnathemSystemToolsDB
 ## SavedVariablesPerCharacter: AnathemSystemToolsPerCharDB
 
+Libs\embeds.xml
+
 config.lua
 init.lua
