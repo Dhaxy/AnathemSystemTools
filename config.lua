@@ -5,7 +5,7 @@ local _, core = ...;
 core.Config = {};
 
 local Config = core.Config;
-local UICharacterSheet;
+local UiCharacterSheet;
 
 
 -------------------------------------
@@ -26,7 +26,7 @@ local defaults = {
 -------------------------------------
 
 function Config:Toggle()
-    local menu = UICharacterSheet or Config:CreateMenu();
+    local menu = UiCharacterSheet or Config:CreateMenu();
     menu:SetShown(not menu:IsShown());
 end
 
@@ -60,12 +60,12 @@ end
 local function Tab_OnClick(self)
     PanelTemplates_SetTab(self:GetParent(), self:GetID());
 
-    local scrollChild = UICharacterSheet.ScrollFrame:GetScrollChild();
+    local scrollChild = UiCharacterSheet.ScrollFrame:GetScrollChild();
     if (scrollChild) then
         scrollChild:Hide();
     end
 
-    UICharacterSheet.ScrollFrame:SetScrollChild(self.content);
+    UiCharacterSheet.ScrollFrame:SetScrollChild(self.content);
     self.content:Show();
 end
 
@@ -80,14 +80,14 @@ local function SetTabs(frame, numTabs, ...)
         tab:SetText(select(i, ...));
         tab:SetScript("OnClick", Tab_OnClick);
 
-        tab.content = CreateFrame("Frame", nil, UICharacterSheet.ScrollFrame);
+        tab.content = CreateFrame("Frame", nil, UiCharacterSheet.ScrollFrame);
         tab.content:SetSize(520, 540);
         tab.content:Hide();
 
         table.insert(contents, tab.content);
 
         if (i == 1) then
-            tab:SetPoint("TOPLEFT", UICharacterSheet, "BOTTOMLEFT", 5, 2);
+            tab:SetPoint("TOPLEFT", UiCharacterSheet, "BOTTOMLEFT", 5, 2);
         else
             tab:SetPoint("TOPLEFT", _G[frameName.."Tab"..(i - 1)], "TOPRIGHT", -14, 0);
         end
@@ -104,33 +104,33 @@ function Config:CreateMenu()
     -- Main Frame
     ----------------------------------
 
-    UICharacterSheet = CreateFrame("Frame", "AnathemCharacterSheet", UIParent, "BasicFrameTemplate");
-    UICharacterSheet:SetSize(550, 600);
-    UICharacterSheet:SetPoint("CENTER");
-    UICharacterSheet:SetMovable(true);
-    UICharacterSheet:EnableMouse(true);
-    UICharacterSheet:RegisterForDrag("LeftButton");
-    UICharacterSheet:SetScript("OnDragStart", UICharacterSheet.StartMoving);
-    UICharacterSheet:SetScript("OnDragStop", UICharacterSheet.StopMovingOrSizing);
-    UICharacterSheet.title = UICharacterSheet:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
-    UICharacterSheet.title:SetPoint("CENTER", UICharacterSheet.TitleBg, "CENTER", 6, 1);
-    UICharacterSheet.title:SetText("Anathem Character Sheet");
+    UiCharacterSheet = CreateFrame("Frame", "AnathemCharacterSheet", UIParent, "BasicFrameTemplate");
+    UiCharacterSheet:SetSize(550, 600);
+    UiCharacterSheet:SetPoint("CENTER");
+    UiCharacterSheet:SetMovable(true);
+    UiCharacterSheet:EnableMouse(true);
+    UiCharacterSheet:RegisterForDrag("LeftButton");
+    UiCharacterSheet:SetScript("OnDragStart", UiCharacterSheet.StartMoving);
+    UiCharacterSheet:SetScript("OnDragStop", UiCharacterSheet.StopMovingOrSizing);
+    UiCharacterSheet.title = UiCharacterSheet:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
+    UiCharacterSheet.title:SetPoint("CENTER", UiCharacterSheet.TitleBg, "CENTER", 6, 1);
+    UiCharacterSheet.title:SetText("Anathem Character Sheet");
     
     ----------------------------------
     -- Scroll Frame
     ----------------------------------
 
-    UICharacterSheet.ScrollFrame = CreateFrame("ScrollFrame", nil, UICharacterSheet, "UIPanelScrollFrameTemplate");
-    UICharacterSheet.ScrollFrame:SetPoint("TOPLEFT", UICharacterSheet.Bg, "TOPLEFT", 4, -8);
-    UICharacterSheet.ScrollFrame:SetPoint("BOTTOMRIGHT", UICharacterSheet.Bg, "BOTTOMRIGHT", -3, 4);
-    UICharacterSheet.ScrollFrame:SetClipsChildren(true);
-    UICharacterSheet.ScrollFrame:SetScript("OnMouseWheel", ScrollFrame_OnMouseWheel);
+    UiCharacterSheet.ScrollFrame = CreateFrame("ScrollFrame", nil, UiCharacterSheet, "UIPanelScrollFrameTemplate");
+    UiCharacterSheet.ScrollFrame:SetPoint("TOPLEFT", UiCharacterSheet.Bg, "TOPLEFT", 4, -8);
+    UiCharacterSheet.ScrollFrame:SetPoint("BOTTOMRIGHT", UiCharacterSheet.Bg, "BOTTOMRIGHT", -3, 4);
+    UiCharacterSheet.ScrollFrame:SetClipsChildren(true);
+    UiCharacterSheet.ScrollFrame:SetScript("OnMouseWheel", ScrollFrame_OnMouseWheel);
 
-    UICharacterSheet.ScrollFrame.ScrollBar:ClearAllPoints();
-    UICharacterSheet.ScrollFrame.ScrollBar:SetPoint("TOPLEFT", UICharacterSheet.ScrollFrame, "TOPRIGHT", -12, -18);
-    UICharacterSheet.ScrollFrame.ScrollBar:SetPoint("BOTTOMRIGHT", UICharacterSheet.ScrollFrame, "BOTTOMRIGHT", -7, 18);
+    UiCharacterSheet.ScrollFrame.ScrollBar:ClearAllPoints();
+    UiCharacterSheet.ScrollFrame.ScrollBar:SetPoint("TOPLEFT", UiCharacterSheet.ScrollFrame, "TOPRIGHT", -12, -18);
+    UiCharacterSheet.ScrollFrame.ScrollBar:SetPoint("BOTTOMRIGHT", UiCharacterSheet.ScrollFrame, "BOTTOMRIGHT", -7, 18);
 
-    local content1, content2, content3 = SetTabs(UICharacterSheet, 3, "Statistiques", "Compétences", "Configuration");
+    local content1, content2, content3 = SetTabs(UiCharacterSheet, 3, "Statistiques", "Compétences", "Configuration");
     
     
     ----------------------------------
@@ -153,6 +153,6 @@ function Config:CreateMenu()
     -- content 3
     ----------------------------------
 
-    UICharacterSheet:Hide();
-    return UICharacterSheet;
+    UiCharacterSheet:Hide();
+    return UiCharacterSheet;
 end
