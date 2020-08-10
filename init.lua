@@ -8,6 +8,14 @@ local _, core = ...;
 -- Custom Slash Commands
 -------------------------------------
 
+core.AnathemUiVariables = {
+    ["minimapPos"] = 206.3376812873
+}
+
+-------------------------------------
+-- Custom Slash Commands
+-------------------------------------
+
 core.commands = {
     ["config"] = core.Config.Toggle,
 
@@ -89,17 +97,33 @@ function core:init(event, name)
     SLASH_AnathemSystemTools1 = "/ast";
     SlashCmdList.AnathemSystemTools = HandleSlashCommands;
 
+    -------------------------------------
+    -- Initialize minimap button
+    -------------------------------------
+
 
     local ldb = LibStub:GetLibrary("LibDataBroker-1.1");
-    local dataobj = ldb:NewDataObject("AnathemSystemTools", {
-        type = "data source",
-        icon = "",
-        text = "Anathem System Tools",
-        OnClick = function() print("BUNNIES ARE TAKING OVER THE WORLD") end,
-    });
+    local ldbIcon = ldb and LibStub("LibDBIcon-1.0");
+    if ldb then
+        local minimapObject = ldb:NewDataObject("AnathemSystemTools", {
+            type = "data source",
+            icon = "",
+            text = "Anathem System Tools",
+            OnClick = function(_, button)
+                if button == "LeftButton" then
+                    self.Config:Toggle()
+                end
+            end,
+            OnTooltipShow = function(tooltip) 
+                tooltip.addLine("|cff00ccffAnathemSystemTools v.0.0.1|r");
+                tooltip.addLine("Cliquez pour ouvrir la fiche de personnage")
+            end
+        });
+    end
 
-    local icon = LibStub("LibDBIcon-1.0");
-    icon:Register("AnathemSystemTools", dataobj, minimapicondb);
+    if ldbIcon then
+        ldbIcon:Register("AnathemSystemTools", minimapObject, AnathemUiVariables)
+    end
 
     core:PrintWithPrefix("Anathem system tools initialisés, bienvenue", UnitName("player").." !");
     core:PrintWithPrefix("From Droogz, with love |cffe82113<3|r. Add-on pour l'univers RP Anathem.")
