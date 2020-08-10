@@ -1,5 +1,5 @@
 # AnathemSystemTools
-Un addon pour aider Arche à fouetter ses pauvres joueurs.
+AddOn pour assister le jeu de rôle avec le système de jeu Anathem.
 
 
 # Liens utiles pour le LUA :
@@ -12,3 +12,6 @@ Un site avec toute la syntaxe LUA
 
 L'API complète
 > http://wowprogramming.com/index.html
+
+Setup un bouton sur la minimap
+> https://www.wowinterface.com/forums/showthread.php?t=57681
