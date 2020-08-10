@@ -81,12 +81,6 @@ function core:init(event, name)
     SLASH_RELOADUI1 = "/rl";
     SlashCmdList.RELOADUI = ReloadUI;
 
-    SLASH_FRAMESTK1 = "/fs"; -- new slash command for showing framestack tool
-	SlashCmdList.FRAMESTK = function()
-		LoadAddOn("Blizzard_DebugTools");
-		FrameStackTooltip_Toggle();
-	end
-
     SLASH_AnathemSystemTools1 = "/ast";
     SlashCmdList.AnathemSystemTools = HandleSlashCommands;
 
