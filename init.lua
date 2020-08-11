@@ -100,7 +100,7 @@ end
 function core:InitMinimapButton(...)
     local dataobj = ldb:NewDataObject("AnathemSystemTools", {
         type = "data source",
-        icon = "Interface\\AddOns\\AnathemSystemTools\\Icons\\Ability_Warrior_Revenge",
+        icon = "Interface\\AddOns\\AnathemSystemTools\\resources\\anathemlogo.tga",
         text = "Anathem System Tools",
         OnClick = function(_, button)
             if button == "LeftButton" then
@@ -153,12 +153,6 @@ function core:init(event, name)
     SlashCmdList.AnathemSystemTools = HandleSlashCommands;
 
     -------------------------------------
-    -- Initialize minimap button
-    -------------------------------------
-
-    core:InitMinimapButton();
-
-    -------------------------------------
     -- Print welcome text
     -------------------------------------
 
@@ -169,3 +163,7 @@ end
 local events = CreateFrame("Frame");
 events:SetScript("OnEvent", core.init);
 events:RegisterEvent("ADDON_LOADED");
+
+local f = CreateFrame("Frame");
+f:SetScript("OnEvent", core.InitMinimapButton);
+f:RegisterEvent("PLAYER_LOGIN");
