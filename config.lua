@@ -22,7 +22,16 @@ local defaults = {
 }
 
 -------------------------------------
--- Config functions
+-- Main theme color
+-------------------------------------
+
+function Config:GetThemeColor()
+	local c = defaults.theme;
+	return c.r, c.g, c.b, c.hex;
+end
+
+-------------------------------------
+-- Toggle main frame
 -------------------------------------
 
 function Config:Toggle()
@@ -30,20 +39,23 @@ function Config:Toggle()
     menu:SetShown(not menu:IsShown());
 end
 
-function Config:GetThemeColor()
-	local c = defaults.theme;
-	return c.r, c.g, c.b, c.hex;
-end
+-------------------------------------
+-- Create button
+-------------------------------------
 
-function Config:CreateButton(point, relativeFrame, relativePoint, yOffset, text)
+function Config:CreateButton(point, relativeFrame, relativePoint, yOffset, text, buttonLength, buttonHeight)
     local button = CreateFrame("Button", nil, relativeFrame, "GameMenuButtonTemplate");
     button:SetPoint(point, relativeFrame, relativePoint, 0, yOffset);
-    button:SetSize(80, 40);
+    button:SetSize(buttonLength, buttonHeight);
     button:SetText(text);
     button:SetNormalFontObject("GameFontNormalLarge");
     button:SetHighlightFontObject("GameFontHighlightLarge");
     return button; 
 end
+
+-------------------------------------
+-- On Mouse Wheel event
+-------------------------------------
 
 local function ScrollFrame_OnMouseWheel(self, delta)
 	local newValue = self:GetVerticalScroll() - (delta * 20);
@@ -57,6 +69,10 @@ local function ScrollFrame_OnMouseWheel(self, delta)
 	self:SetVerticalScroll(newValue);
 end
 
+-------------------------------------
+-- Tab on Click event
+-------------------------------------
+
 local function Tab_OnClick(self)
     PanelTemplates_SetTab(self:GetParent(), self:GetID());
 
@@ -68,6 +84,10 @@ local function Tab_OnClick(self)
     UiCharacterSheet.ScrollFrame:SetScrollChild(self.content);
     self.content:Show();
 end
+
+-------------------------------------
+-- Set tabs
+-------------------------------------
 
 local function SetTabs(frame, numTabs, ...)
     frame.numTabs = numTabs;
@@ -97,6 +117,10 @@ local function SetTabs(frame, numTabs, ...)
 
     return unpack(contents);
 end
+
+-------------------------------------
+-- Create main UI
+-------------------------------------
 
 function Config:CreateMenu()
 
@@ -130,7 +154,7 @@ function Config:CreateMenu()
     UiCharacterSheet.ScrollFrame.ScrollBar:SetPoint("TOPLEFT", UiCharacterSheet.ScrollFrame, "TOPRIGHT", -12, -18);
     UiCharacterSheet.ScrollFrame.ScrollBar:SetPoint("BOTTOMRIGHT", UiCharacterSheet.ScrollFrame, "BOTTOMRIGHT", -7, 18);
 
-    local content1, content2, content3 = SetTabs(UiCharacterSheet, 3, "Statistiques", "Compétences", "Configuration");
+    local firstTab, secondTab, thirdTab = SetTabs(UiCharacterSheet, 3, "Statistiques", "Compétences", "Configuration");
     
     
     ----------------------------------
@@ -141,7 +165,7 @@ function Config:CreateMenu()
 	-- Buttons
     ----------------------------------
     
-    content1.saveButton = self:CreateButton("CENTER", content1, "BOTTOM", 0, "Save");
+    firstTab.saveButton = self:CreateButton("CENTER", firstTab, "BOTTOM", 0, "Save", 80, 40);
 
 
     ----------------------------------

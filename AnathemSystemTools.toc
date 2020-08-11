@@ -3,8 +3,7 @@
 ## Author: Droogz
 ## Version: 0.0.1
 ## DefaultState: enabled
-## SavedVariables: AnathemSystemToolsDB
-## SavedVariablesPerCharacter: AnathemUiVariables
+## SavedVariablesPerCharacter: AnathemUiVariablesPerCharacter
 
 Libs\embeds.xml
 

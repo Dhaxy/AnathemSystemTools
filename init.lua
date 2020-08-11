@@ -4,6 +4,20 @@
 
 local _, core = ...;
 
+-------------------------------------
+-- Libs
+-------------------------------------
+
+local ldb = LibStub:GetLibrary("LibDataBroker-1.1");
+local icon = LibStub("LibDBIcon-1.0");
+
+-------------------------------------
+-- Global variables
+-------------------------------------
+
+AnathemUiVariablesPerCharacter = {
+    minimapIconDb = {}
+}
 
 -------------------------------------
 -- Custom Slash Commands
@@ -19,6 +33,10 @@ core.commands = {
         core:Print("|cff00cc66/ast aide|r - Montre l'aide");
     end
 };
+
+-------------------------------------
+-- Handle Slash Commands
+-------------------------------------
 
 local function HandleSlashCommands(str)
     if (#str == 0) then
@@ -55,16 +73,66 @@ local function HandleSlashCommands(str)
     end
 end
 
+
+-------------------------------------
+-- Simple Print
+-------------------------------------
+
 function core:Print(...)
-    local hex = select(4, self.Config:GetThemeColor());
     DEFAULT_CHAT_FRAME:AddMessage(string.join(" ", ...));
 end
+
+
+-------------------------------------
+-- Print with prefix
+-------------------------------------
 
 function core:PrintWithPrefix(...)
     local hex = select(4, self.Config:GetThemeColor());
     local prefix = string.format("|cff%s%s|r", hex:upper(), "Anathem System Tools:");	
     DEFAULT_CHAT_FRAME:AddMessage(string.join(" ", prefix, ...));
 end
+
+-------------------------------------
+-- Minimap button init
+-------------------------------------
+
+function core:InitMinimapButton(...)
+    local dataobj = ldb:NewDataObject("AnathemSystemTools", {
+        type = "data source",
+        icon = "Interface\\AddOns\\AnathemSystemTools\\Icons\\Ability_Warrior_Revenge",
+        text = "Anathem System Tools",
+        OnClick = function(_, button)
+            if button == "LeftButton" then
+                core.Config.Toggle()
+            end
+        end,
+        OnTooltipShow = function(tooltip) 
+            tooltip:SetText("|cff00ccffAnathemSystemTools v.0.0.1|r");
+            tooltip:AddLine("Cliquez pour ouvrir la fiche de personnage")
+            tooltip:Show()
+        end,
+        OnMouseUp = function()
+            if ldb and icon then
+                icon:Refresh("AnathemSystemTools", AnathemUiVariablesPerCharacter.minimapIconDb);
+            end
+        end
+    });
+
+    if not AnathemUiVariablesPerCharacter.minimapIconDb then
+        AnathemUiVariablesPerCharacter.minimapIconDb = {
+            hide = false,
+            minimapPos = 220,
+            radius = 80
+        }
+    end
+
+    icon:Register("AnathemSystemTools", dataobj, AnathemUiVariablesPerCharacter.minimapIconDb);
+end
+
+-------------------------------------
+-- Addon init
+-------------------------------------
 
 function core:init(event, name)
     if (name ~= "AnathemSystemTools") then return end
@@ -88,30 +156,16 @@ function core:init(event, name)
     -- Initialize minimap button
     -------------------------------------
 
-    local ldb = LibStub:GetLibrary("LibDataBroker-1.1");
-    local dataobj = ldb:NewDataObject("AnathemSystemTools", {
-        type = "data source",
-        icon = "Interface\\AddOns\\AnathemSystemTools\\Icons\\Ability_Warrior_Revenge",
-        text = "Anathem System Tools",
-        OnClick = function(_, button)
-            if button == "LeftButton" then
-                core.Config.Toggle()
-            end
-        end,
-        OnTooltipShow = function(tooltip) 
-            tooltip:SetText("|cff00ccffAnathemSystemTools v.0.0.1|r");
-            tooltip:AddLine("Cliquez pour ouvrir la fiche de personnage")
-            tooltip:Show()
-        end
-    });
+    core:InitMinimapButton();
 
-    local icon = LibStub("LibDBIcon-1.0");
-    icon:Register("AnathemSystemTools", dataobj, minimapicondb);
+    -------------------------------------
+    -- Print welcome text
+    -------------------------------------
 
     core:PrintWithPrefix("Anathem system tools initialisés, bienvenue", UnitName("player").." !");
     core:PrintWithPrefix("From Droogz, with love |cffe82113<3|r. Add-on pour l'univers RP Anathem.")
 end
 
 local events = CreateFrame("Frame");
-events:RegisterEvent("ADDON_LOADED");
 events:SetScript("OnEvent", core.init);
+events:RegisterEvent("ADDON_LOADED");
